@@ -4,14 +4,17 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 const cors = require("cors");
 const mongoose = require("mongoose");
+const cookieParser = require("cookie-parser");
+const authRouter = require("./routes/authRouter");
 
-// App
-app.use("/", (req, res) => {
-  res.send("Hello");
-});
-
+// app
 app.use(express.json());
 app.use(cors());
+app.use(cookieParser());
+
+// api
+
+app.use("/api", authRouter);
 
 const connectDb = async () => {
   await mongoose.connect(
